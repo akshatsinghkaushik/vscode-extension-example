@@ -12,7 +12,7 @@ function activate(context) {
     vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
   )}/`;
 
-  // It only runs if a icfg.dot (analysis) file in the currently opened workspace
+  // It only runs if a analysis.txt (analysis) file in the currently opened workspace
   if (fs.existsSync(`${workSpacePath}analysis.txt`)) {
     //Get the analysis file and store it in a variable called text
     const text = fs.readFileSync(`${workSpacePath}analysis.txt`);
