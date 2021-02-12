@@ -17,8 +17,21 @@ function activate(context) {
     )
   );
 
-  // Modify it so that it only runs if a specific file exists in the currently opened workspace
-  if (true) {
+  // It only runs if a icfg.dot (analysis) file in the currently opened workspace
+  if (
+    fs.existsSync(
+      `${path.resolve(
+        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
+      )}/icfg.dot`
+    )
+  ) {
+    //Get the analysis file and store it in a variable called text
+    const text = fs.readFileSync(
+      `${path.resolve(
+        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
+      )}/icfg.dot`
+    );
+
     // create a decorator type
     const matchDecorationType = vscode.window.createTextEditorDecorationType({
       cursor: 'crosshair',
@@ -46,8 +59,6 @@ function activate(context) {
       if (!activeEditor) {
         return;
       }
-
-      const text = activeEditor.document.getText();
 
       const regEx = /\\\{[\s]+ln\:[\s]+[0-9]+[\s]+fl\:[\s]+[a-z]+\.c[\s]+\\\}/g;
       const lnfl = [];
