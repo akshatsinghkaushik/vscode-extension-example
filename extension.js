@@ -8,14 +8,17 @@ function activate(context) {
 
   let timeout = undefined;
 
-  let folderPath = vscode.workspace.workspaceFolders;
+  //Checks if a file named example.c exists in the currently opened workspace in vscode
+  console.log(
+    fs.existsSync(
+      `${path.resolve(
+        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
+      )}/example.c`
+    )
+  );
 
-  if (folderPath) {
-    let pat = folderPath[0].uri.path;
-    console.log(
-      fs.existsSync(`${path.resolve(pat.slice(3, path.length))}/example.c`)
-    );
-
+  // Modify it so that it only runs if a specific file exists in the currently opened workspace
+  if (true) {
     // create a decorator type
     const matchDecorationType = vscode.window.createTextEditorDecorationType({
       cursor: 'crosshair',
