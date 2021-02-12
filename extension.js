@@ -8,29 +8,14 @@ function activate(context) {
 
   let timeout = undefined;
 
-  //Checks if a file named example.c exists in the currently opened workspace in vscode
-  console.log(
-    fs.existsSync(
-      `${path.resolve(
-        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
-      )}/example.c`
-    )
-  );
+  let workSpacePath = `${path.resolve(
+    vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
+  )}/`;
 
   // It only runs if a icfg.dot (analysis) file in the currently opened workspace
-  if (
-    fs.existsSync(
-      `${path.resolve(
-        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
-      )}/icfg.dot`
-    )
-  ) {
+  if (fs.existsSync(`${workSpacePath}analysis.txt`)) {
     //Get the analysis file and store it in a variable called text
-    const text = fs.readFileSync(
-      `${path.resolve(
-        vscode.workspace.workspaceFolders[0].uri.path.slice(3, path.length)
-      )}/icfg.dot`
-    );
+    const text = fs.readFileSync(`${workSpacePath}analysis.txt`);
 
     // create a decorator type
     const matchDecorationType = vscode.window.createTextEditorDecorationType({
@@ -60,7 +45,7 @@ function activate(context) {
         return;
       }
 
-      const regEx = /\\\{[\s]+ln\:[\s]+[0-9]+[\s]+fl\:[\s]+[a-z]+\.c[\s]+\\\}/g;
+      const regEx = /\{[\s]+ln\:[\s]+[0-9]+[\s]+fl\:[\s]+[a-z]+\.c[\s]+\}/g;
       const lnfl = [];
       let match;
       let matchArr = [];
@@ -81,7 +66,7 @@ function activate(context) {
       console.log(matchArr);
       activeEditor.setDecorations(matchDecorationType, lnfl);
 
-      const regExlnclfl = /\\\{[\s]+ln\:[\s]+[0-9]+[\s]+cl\:[\s]+[0-9]+[\s]+fl\:[\s]+[a-z]+\.c[\s]+\\\}/g;
+      const regExlnclfl = /\{[\s]+ln\:[\s]+[0-9]+[\s]+cl\:[\s]+[0-9]+[\s]+fl\:[\s]+[a-z]+\.c[\s]+\}/g;
 
       const lnclfl = [];
       let match1;
@@ -103,7 +88,7 @@ function activate(context) {
       console.log(match1Arr);
       activeEditor.setDecorations(match1DecorationType, lnclfl);
 
-      const regExlinefile = /\\\{[\s]+in[\s]+line\:[\s]+[0-9]+[\s]+file\:[\s]+[a-z]+\.c[\s]+\\\}/g;
+      const regExlinefile = /\{[\s]+in[\s]+line\:[\s]+[0-9]+[\s]+file\:[\s]+[a-z]+\.c[\s]+\}/g;
 
       const linefile = [];
       let match2;

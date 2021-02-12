@@ -1,0 +1,9 @@
+{ ln: 30  cl: 5  fl: example.c }
+{ ln: 30  cl: 5  fl: example.c }
+{ ln: 4 fl: example.c }
+{ ln: 4 fl: example.c }
+{ ln: 4 fl: example.c }
+{ ln: 4 fl: example.c }
+{ ln: 4 fl: example.c }
+{ ln: 4 fl: example.c }
+{ in line: 3 file: example.c }
